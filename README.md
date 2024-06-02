@@ -1,1 +1,1 @@
-# NJJUAI
+# NJUAI
