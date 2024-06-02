@@ -1,0 +1,610 @@
+@prefix : <http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/> .
+
+<http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022> rdf:type owl:Ontology ;
+                                                                  rdfs:comment "This is an ontology about Beijing2022"@en .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/OccursAt
+:OccursAt rdf:type owl:ObjectProperty ;
+          rdfs:domain :Ceremony ,
+                      :Competition ;
+          rdfs:range :Date ,
+                     :Time ,
+                     :Venue ;
+          rdfs:comment "Indicating when and where specific events took place"@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/competesIn
+:competesIn rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owl:topObjectProperty ;
+            rdfs:domain :Athlete ;
+            rdfs:range :Competition ;
+            rdfs:comment "Athlete competes in competition"@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/hosts
+:hosts rdf:type owl:ObjectProperty ;
+       rdfs:subPropertyOf owl:topObjectProperty ;
+       rdfs:domain :Venue ;
+       rdfs:range :Competition ;
+       rdfs:comment "Venue hosts competition"@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/represents
+:represents rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owl:topObjectProperty ;
+            rdfs:domain :Athlete ;
+            rdfs:range :Country ;
+            rdfs:comment "Denoting the relationship between a country and its athletes"@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/wins
+:wins rdf:type owl:ObjectProperty ;
+      rdfs:subPropertyOf owl:topObjectProperty ;
+      rdfs:domain :Athlete ;
+      rdfs:range :Medal ;
+      rdfs:comment "Athlete wins medal"@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Closing_Ceremony_Date
+:Closing_Ceremony_Date rdf:type owl:DatatypeProperty ;
+                       rdfs:comment "Specifies the exact date of the closing ceremony"@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Event_Results
+:Event_Results rdf:type owl:DatatypeProperty ;
+               rdfs:comment "Details the results of each event" .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Medal_Counts
+:Medal_Counts rdf:type owl:DatatypeProperty ;
+              rdfs:range xsd:integer ;
+              rdfs:comment "Tabulates the number of medals won by each country"@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Number_of_Participating_Countries
+:Number_of_Participating_Countries rdf:type owl:DatatypeProperty ;
+                                   rdfs:domain :Country ;
+                                   rdfs:range xsd:integer ;
+                                   rdfs:comment "Records the total number of countries participating in the Beijing Winter Olympics"@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Opening_Ceremony_Date
+:Opening_Ceremony_Date rdf:type owl:DatatypeProperty ;
+                       rdfs:comment "Specifies the exact date of the opening ceremony"@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/AthletesNumber
+:AthletesNumber rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Athlete ,
+                            :Country ;
+                rdfs:range xsd:string ;
+                rdfs:comment "Keeps track of the total number of athletes competing of a country"@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/CompetitorInformation
+:CompetitorInformation rdf:type owl:DatatypeProperty ;
+                       rdfs:domain :Athlete ;
+                       rdfs:range xsd:string ;
+                       rdfs:comment "showing the country and competition and ect of an athlete"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#M_Short_Track_Speed_Skating
+:M_Short_Track_Speed_Skating rdf:type owl:Class ;
+                             rdfs:subClassOf :Short_Track_Speed_Skating .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#M_Speed_Skating
+:M_Speed_Skating rdf:type owl:Class ;
+                 rdfs:subClassOf :Speed_Skating .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#W_Short_Track_Speed_Skating
+:W_Short_Track_Speed_Skating rdf:type owl:Class ;
+                             rdfs:subClassOf :Short_Track_Speed_Skating .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#W_Speed_Skating
+:W_Speed_Skating rdf:type owl:Class ;
+                 rdfs:subClassOf :Speed_Skating .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Snowboard_&_Freestyle_Skiing_Big_Air
+<http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Snowboard_&_Freestyle_Skiing_Big_Air> rdf:type owl:Class ;
+                                                                                                      rdfs:subClassOf :Competition .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Alpine_Skiing_Speed_Events
+:Alpine_Skiing_Speed_Events rdf:type owl:Class ;
+                            rdfs:subClassOf :Competition .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Alpine_Skiing_Technical_Events
+:Alpine_Skiing_Technical_Events rdf:type owl:Class ;
+                                rdfs:subClassOf :Competition .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Athlete
+:Athlete rdf:type owl:Class ;
+         rdfs:subClassOf :Beijing2022 ;
+         rdfs:comment "This class denotes all the athletes"@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Beijing2022
+:Beijing2022 rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Biathlon
+:Biathlon rdf:type owl:Class ;
+          rdfs:subClassOf :Competition .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Bobsleigh
+:Bobsleigh rdf:type owl:Class ;
+           rdfs:subClassOf :Competition .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Ceremony
+:Ceremony rdf:type owl:Class ;
+          rdfs:subClassOf :Beijing2022 .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Competition
+:Competition rdf:type owl:Class ;
+             rdfs:subClassOf :Beijing2022 ;
+             rdfs:comment "This class denotes all the competitions"@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Country
+:Country rdf:type owl:Class ;
+         owl:equivalentClass :Team ;
+         rdfs:subClassOf :Beijing2022 ;
+         rdfs:comment "This class denotes all the countries"@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Curling
+:Curling rdf:type owl:Class ;
+         rdfs:subClassOf :Competition .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Date
+:Date rdf:type owl:Class ;
+      rdfs:subClassOf :Beijing2022 .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Figure_Skating
+:Figure_Skating rdf:type owl:Class ;
+                rdfs:subClassOf :Competition .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Freestyle_Skiing
+:Freestyle_Skiing rdf:type owl:Class ;
+                  rdfs:subClassOf :Competition .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Ice_Hockey
+:Ice_Hockey rdf:type owl:Class ;
+            rdfs:subClassOf :Competition .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Luge
+:Luge rdf:type owl:Class ;
+      rdfs:subClassOf :Competition .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Medal
+:Medal rdf:type owl:Class ;
+       rdfs:subClassOf :Beijing2022 .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Result
+:Result rdf:type owl:Class ;
+        rdfs:subClassOf :Beijing2022 .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Schedule
+:Schedule rdf:type owl:Class ;
+          rdfs:subClassOf :Beijing2022 .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Short_Track_Speed_Skating
+:Short_Track_Speed_Skating rdf:type owl:Class ;
+                           rdfs:subClassOf :Competition .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Skeleton
+:Skeleton rdf:type owl:Class ;
+          rdfs:subClassOf :Competition .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Snowboard
+:Snowboard rdf:type owl:Class ;
+           rdfs:subClassOf :Competition .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Speed_Skating
+:Speed_Skating rdf:type owl:Class ;
+               rdfs:subClassOf :Competition .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Team
+:Team rdf:type owl:Class ;
+      rdfs:subClassOf :Beijing2022 .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Time
+:Time rdf:type owl:Class ;
+      rdfs:subClassOf :Beijing2022 .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Venue
+:Venue rdf:type owl:Class ;
+       rdfs:subClassOf :Beijing2022 .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/bronze_medal
+:bronze_medal rdf:type owl:Class ;
+              rdfs:subClassOf :Medal .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/female_athlete
+:female_athlete rdf:type owl:Class ;
+                rdfs:subClassOf :Athlete .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/gold_medal
+:gold_medal rdf:type owl:Class ;
+            rdfs:subClassOf :Medal .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/male_athlete
+:male_athlete rdf:type owl:Class ;
+              rdfs:subClassOf :Athlete .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/silver_medal
+:silver_medal rdf:type owl:Class ;
+              rdfs:subClassOf :Medal .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Beijing2022
+:Beijing2022 rdf:type owl:NamedIndividual ,
+                      :Beijing2022 ;
+             :Number_of_Participating_Countries "91"@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Curling
+:Curling rdf:type owl:NamedIndividual ,
+                  :Competition .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Friday_04_Feb.
+<http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Friday_04_Feb.> rdf:type owl:NamedIndividual ,
+                                                                                         :Date .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Friday_11_Feb.
+<http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Friday_11_Feb.> rdf:type owl:NamedIndividual ,
+                                                                                         :Date .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Friday_18_Feb.
+<http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Friday_18_Feb.> rdf:type owl:NamedIndividual ,
+                                                                                         :Date .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#M_500_m
+:M_500_m rdf:type owl:NamedIndividual ,
+                  :M_Speed_Skating .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#M_500_m_gold_medal
+:M_500_m_gold_medal rdf:type owl:NamedIndividual ,
+                             :gold_medal .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#M_Figure_Skating
+:M_Figure_Skating rdf:type owl:NamedIndividual ,
+                           :Figure_Skating ;
+                  :Event_Results """Nathan Chen 332.60
+Yuma Kagiyama 310.05
+Shoma Uno 293.00"""@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#M_Team_Pursuit
+:M_Team_Pursuit rdf:type owl:NamedIndividual ,
+                         :M_Speed_Skating ;
+                :OccursAt :Capital_Indoor_Stadium .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Mixed_Relay
+:Mixed_Relay rdf:type owl:NamedIndividual ,
+                      :Biathlon ;
+             :OccursAt <http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#17:00-18:30> .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Monday_14_Feb.
+<http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Monday_14_Feb.> rdf:type owl:NamedIndividual ,
+                                                                                         :Date .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Saturday_05_Feb.
+<http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Saturday_05_Feb.> rdf:type owl:NamedIndividual ,
+                                                                                           :Date .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Saturday_12_Feb.
+<http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Saturday_12_Feb.> rdf:type owl:NamedIndividual ,
+                                                                                           :Date .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Saturday_19_Feb.
+<http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Saturday_19_Feb.> rdf:type owl:NamedIndividual ,
+                                                                                           :Date .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Sunday_13_Feb.
+<http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Sunday_13_Feb.> rdf:type owl:NamedIndividual ,
+                                                                                         :Date .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Sunday_20_Feb.
+<http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Sunday_20_Feb.> rdf:type owl:NamedIndividual ,
+                                                                                         :Date .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Thursday_03_Feb.
+<http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Thursday_03_Feb.> rdf:type owl:NamedIndividual ,
+                                                                                           :Date .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Thursday_10_Feb.
+<http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Thursday_10_Feb.> rdf:type owl:NamedIndividual ,
+                                                                                           :Date .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Thursday_17_Feb.
+<http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Thursday_17_Feb.> rdf:type owl:NamedIndividual ,
+                                                                                           :Date .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Tuesday_08_Feb.
+<http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Tuesday_08_Feb.> rdf:type owl:NamedIndividual ,
+                                                                                          :Date .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Tuesday_15_Feb.
+<http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Tuesday_15_Feb.> rdf:type owl:NamedIndividual ,
+                                                                                          :Date .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#W_500_m
+:W_500_m rdf:type owl:NamedIndividual ,
+                  :W_Short_Track_Speed_Skating .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#W_Freeski_Big_Air
+:W_Freeski_Big_Air rdf:type owl:NamedIndividual ,
+                            :Freestyle_Skiing .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Wednesday_02_Feb.
+<http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Wednesday_02_Feb.> rdf:type owl:NamedIndividual ,
+                                                                                            :Date .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Wednesday_09_Feb.
+<http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Wednesday_09_Feb.> rdf:type owl:NamedIndividual ,
+                                                                                            :Date .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Wednesday_16_Feb.
+<http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#Wednesday_16_Feb.> rdf:type owl:NamedIndividual ,
+                                                                                            :Date .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#17:00-18:30
+<http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#17:00-18:30> rdf:type owl:NamedIndividual ,
+                                                                                      :Time .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#People's_Republic_of_China
+<http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#People's_Republic_of_China> rdf:type owl:NamedIndividual ,
+                                                                                                     :Country ;
+                                                                                            :Medal_Counts "15"@en ;
+                                                                                            :AthletesNumber "131"@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Arianna_FONTANA
+:Arianna_FONTANA rdf:type owl:NamedIndividual ,
+                          :female_athlete ;
+                 :wins :W_500_m ;
+                 :CompetitorInformation "Italy Short Track Speed Skating"@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Big_Air_Shougang
+:Big_Air_Shougang rdf:type owl:NamedIndividual ,
+                           :Venue ;
+                  :hosts :W_Freeski_Big_Air .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Capital_Indoor_Stadium
+:Capital_Indoor_Stadium rdf:type owl:NamedIndividual ,
+                                 :Venue .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Closing_Ceremony
+:Closing_Ceremony rdf:type owl:NamedIndividual ,
+                           :Ceremony ;
+                  :Closing_Ceremony_Date "Sunday 20 Feb."@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Dajing_Wu
+:Dajing_Wu rdf:type owl:NamedIndividual ,
+                    :male_athlete ;
+           :competesIn :M_500_m .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/France
+:France rdf:type owl:NamedIndividual ,
+                 :Country .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/GU_Ailing_Eileen
+:GU_Ailing_Eileen rdf:type owl:NamedIndividual ,
+                           :female_athlete ;
+                  :represents <http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022#People's_Republic_of_China> .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Hanyu_Yuzuru
+:Hanyu_Yuzuru rdf:type owl:NamedIndividual ,
+                       :male_athlete ;
+              :CompetitorInformation "Japan men's figure skating singles" .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Irene_Schouten
+:Irene_Schouten rdf:type owl:NamedIndividual ,
+                         :female_athlete ;
+                :represents :Netherlands .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Italy
+:Italy rdf:type owl:NamedIndividual ,
+                :Country ;
+       :Medal_Counts 17 .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Japan
+:Japan rdf:type owl:NamedIndividual ,
+                :Country ;
+       :Medal_Counts "18"@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Johannes_Thingnes_Boe
+:Johannes_Thingnes_Boe rdf:type owl:NamedIndividual ,
+                                :male_athlete ;
+                       :represents :Norway .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Mengtao_Xu
+:Mengtao_Xu rdf:type owl:NamedIndividual ,
+                     :female_athlete ;
+            :CompetitorInformation "People's Republic of China Freestyle Skiing"@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Monday_07_Feb
+:Monday_07_Feb rdf:type owl:NamedIndividual ,
+                        :Date .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Nathan_CHEN
+:Nathan_CHEN rdf:type owl:NamedIndividual ,
+                      :male_athlete ;
+             :competesIn :M_Figure_Skating .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/National_Aquatics_Centre
+:National_Aquatics_Centre rdf:type owl:NamedIndividual ,
+                                   :Venue ;
+                          :hosts :Curling .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/National_Indoor_Stadium
+:National_Indoor_Stadium rdf:type owl:NamedIndividual ,
+                                  :Venue .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/National_Speed_Skating_Oval
+:National_Speed_Skating_Oval rdf:type owl:NamedIndividual ,
+                                      :Venue .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/National_Stadium
+:National_Stadium rdf:type owl:NamedIndividual ,
+                           :Venue ;
+                  :hosts :Opening_Ceremony .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Netherlands
+:Netherlands rdf:type owl:NamedIndividual ,
+                      :Country .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Norway
+:Norway rdf:type owl:NamedIndividual ,
+                 :Country .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Opening_Ceremony
+:Opening_Ceremony rdf:type owl:NamedIndividual ,
+                           :Ceremony ;
+                  :Opening_Ceremony_Date "Friday 04 Feb."@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Quentin_FILLON_MAILLET
+:Quentin_FILLON_MAILLET rdf:type owl:NamedIndividual ,
+                                 :male_athlete ;
+                        :represents :France .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Sunday_06_Feb
+:Sunday_06_Feb rdf:type owl:NamedIndividual ,
+                        :Date .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Tingyu_Gao
+:Tingyu_Gao rdf:type owl:NamedIndividual ,
+                     :male_athlete ;
+            :wins :M_500_m_gold_medal ;
+            :CompetitorInformation "People's Republic of China Speed Skating"@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/United_States_of_America
+:United_States_of_America rdf:type owl:NamedIndividual ,
+                                   :Country ;
+                          :AthletesNumber "222"@en .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Wukesong_Sports_Centre
+:Wukesong_Sports_Centre rdf:type owl:NamedIndividual ,
+                                 :Venue .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Yanqing_National_Alpine_Skiing_Centre
+:Yanqing_National_Alpine_Skiing_Centre rdf:type owl:NamedIndividual ,
+                                                :Venue .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Yanqing_National_Sliding_Centre
+:Yanqing_National_Sliding_Centre rdf:type owl:NamedIndividual ,
+                                          :Venue .
+
+
+###  http://www.semanticweb.org/86182/ontologies/2024/2/Beijing2022/Zhangjiakou_Genting_Snow_Park
+:Zhangjiakou_Genting_Snow_Park rdf:type owl:NamedIndividual ,
+                                        :Venue ;
+                               :hosts :Mixed_Relay .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
