@@ -1,0 +1,291 @@
+葡萄酒的品级往往有各种主观因素的影响，尝试使⽤葡萄酒本⾝的理化特征，对酒的品级结果进⾏预测，并分析对酒的等级最重要的特征。试通过分析结果筛选和设计特征，并使⽤各种机器学习算法，完成对葡萄酒品级的预测任务。任务建模上，可以将这个预测视为⼀个多分类任务，即品级的每个整数值视为⼀个类；也可以将其视为⼀个回归任务，以⼏个特征作为对品级的数值进⾏回归，之后舍⼊到整数作为预测结果。这两个⽅法的优劣对⽐也是⼀个可以进⾏的⼯作。
+数据集名称为：wine.csv，其中⾸⾏为标题⾏，⽽其余⾏是由"\t"分割的数据字段，包含5574条英⽂短消息：
+字段 含义 数据类型 例⼦
+quality 葡萄酒的品级打分
+范围：[3,9]
+int 6
+<其他> 葡萄酒的各种理化特征 float pH=3.19，表⽰该样本测得的PH值是3.19
+csv⽂件可以⽅便地加载为pandas.Dataframe，⽽我们需要⽤前4000⾏作为训练集，其余⽤作验证
+集：
+import pandas
+# 加载数据集，注意sep参数表⽰更换分隔符
+dataset = pandas.read_csv("wine.csv")
+# 前4000句作为训练集，4001到末尾作为验证集
+train_dataset = dataset.head(4000)
+valid_dataset = dataset.tail(-4000)
+任务介绍
+1. 对数据进⾏分析和可视化，评价各个特征：
+• 寻找评价指标，定量地判断单个或多个联合特征，对分类（品级）结果的贡献
+• 通过数据可视化，直观地展⽰出指标与分类结果的关系
+• 在以上结果的基础上，确定需要⽤于分类的特征⼦集
+◦ 选取的特征并不是越多越好，与任务标签相关度低的特征，可能会成为噪声，⼲扰模型的决策
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+下面是一个构建基于传统机器学习⽅法对葡萄酒品质打分的分类模型：
+#导入所需软件包
+import pandas as pd
+import numpy as np
+import sklearn
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import f1_score
+
+
+# 加载数据集，注意sep参数表示更换分隔符
+dataset = pd.read_csv("wine.csv")
+# 前4000句作为训练集，4001到末尾作为验证集
+train_dataset = dataset.head(4000)
+valid_dataset = dataset.tail(-4000)
+
+# 计算不同方法的相关系数矩阵并绘制热力图
+df3 = train_dataset.corr(method='spearman')[u'quality']
+y = train_dataset.iloc[:, [11]].values
+x = train_dataset.iloc[:, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]
+X = dataset.iloc[:, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]
+Y = dataset.iloc[:, [11]].values
+X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.5, random_state=42)
+print('训练集测试及参数：')
+print('X_train.shape={}\n y_train.shape ={}\n X_test.shape={}\n y_test.shape={}'.format(X_train.shape, y_train.shape,X_test.shape,y_test.shape))
+##线性回归开始：
+linreg = LinearRegression() # 建立线性回归模型对象
+# 训练模型并输出模型参数和权重
+model = linreg.fit(X_train, y_train)
+print('模型参数：')
+print(model) # 输出线性回归模型的参数信息
+print('参数权重：')
+print(linreg.coef_) # 输出线性回归模型的权重信息
+y_pred = linreg.predict(X_test) # 利用测试集对模型进行预测并返回预测结果列表
+sum_mean = 0
+for i in range(len(y_pred)):
+    sum_mean += (y_pred[i] - y_test[i]) ** 2
+sum_err = np.sqrt(sum_mean / len(y_pred)) # RMSE计算公式：均方误差开方根
+# calculate RMSE by hand:
+print("RMSE by hand:", sum_err) # RMSE手动计算结果：均方误差开方根值
+y_pred = np.around(y_pred,0).astype(int)
+f1_micro=sklearn.metrics.f1_score(y_test, y_pred, average='micro')
+print(f'线性回归：F1_score_micro:{f1_micro}')
+##线性回归结束
+##决策树模型
+clf=DecisionTreeClassifier()
+clf.fit(X_train, y_train)
+y_pred=clf.predict(X_test)
+y_pred = np.around(y_pred,0).astype(int)
+f2_micro=sklearn.metrics.f1_score(y_test, y_pred, average='micro')
+print(f'决策树：F1_score_micro:{f2_micro}')
+其中使⽤的数据集⽂件为wine.csv，⾸⾏为标题⾏，⽽其余⾏是由"\t"分割的数据字段，包含5574条英⽂短消息
+请构建基于神经⽹络的分类模型：利⽤神经⽹络构建分类模型，在验证集上检验⾃⼰的模型并使⽤各种⽅式来优化并提升分类的准确率
+
+
+
+
+
+
+机器学习和深度学习都是用于构建模型的方法，它们在一些方面有所不同。下面是一些可能的步骤：
+
+1 数据预处理：无论是机器学习还是深度学习，都需要对数据进行预处理。这包括对数据进行清洗、标准化、归一化等操作，以便让模型更好地理解数据。
+
+2 特征提取：对于机器学习，通常需要手动选择和提取有用的特征。而对于深度学习，可以使用各种自动特征提取方法(例如卷积神经网络)来自动学习特征。
+3 模型选择：机器学习通常使用线性或非线性分类器(例如决策树、支持向量机、朴素贝叶斯等),而深度学习则通常使用神经网络(例如多层感知器、卷积神经网络、循环神经网络等)。
+
+4 训练模型：对于机器学习，需要手动选择和调整超参数(例如正则化系数、最大迭代次数等),并使用交叉验证等技术来评估模型性能。而对于深度学习，可以使用反向传播算法自动优化模型参数。
+
+5 模型评估：无论是机器学习还是深度学习，都需要使用测试数据集来评估模型性能。常用的评估指标包括准确率、召回率、F1值等。
+
+
+
+
+
+
+
+
+
+
+
+构建基于神经网络的回归模型通常涉及以下几个步骤：
+
+数据准备：首先，您需要收集和整理训练数据。确保数据集包含您希望预测的连续值(回归问题)。对于每个特征，您需要为每个观测值分配一个相应的数值。
+
+数据预处理：在开始构建神经网络之前，通常需要对数据进行预处理。这可能包括对数据进行标准化、归一化或缩放，以便将不同特征的数据范围保持一致。此外，还可以对数据进行缺失值填充、异常值检测和处理等操作。
+
+选择合适的神经网络结构：根据您的问题类型和数据特点，选择合适的神经网络结构。常见的回归任务可以使用线性回归、多项式回归、岭回归、Lasso回归、ElasticNet回归等方法。另外，还可以使用深度学习中的神经网络结构，如全连接层、卷积层、循环神经网络(RNN)、长短时记忆网络(LSTM)或者门控循环单元(GRU)等。
+
+训练神经网络：使用训练数据集训练选定的神经网络结构。在训练过程中，神经网络会尝试找到最佳的权重参数，以最小化预测值与实际值之间的误差。可以使用梯度下降法、随机梯度下降法(SGD)或者其他优化算法来更新权重参数。
+
+评估模型性能：在训练完成后，使用测试数据集评估模型的性能。常用的评估指标有均方误差(MSE)、平均绝对误差(MAE)、R-squared(R2)等。这些指标可以帮助您了解模型在预测连续值方面的准确性和可靠性。
+
+调整和优化：根据评估结果，可以对模型进行调整和优化。例如，可以尝试更改网络结构、调整超参数、使用正则化技术等方法来提高模型性能。
+
+通过以上步骤，您可以构建一个基于神经网络的回归模型，用于预测连续值。请注意，构建和优化模型可能需要一定的编程和统计知识。如果您不熟悉相关技术，建议查阅相关文献或寻求专业人士的帮助。
+假设我们有一组数据，包含身高和体重两个特征。我们的目标是预测一个人的体重。这是一个简单的回归问题，可以使用线性回归模型来解决。
+
+数据准备：收集一组包含身高和体重的数据。对于每个样本，我们需要为其分配一个唯一的标识符(如ID),并为身高和体重分别分配一个数值。例如：
+        
+css
+复制代码
+
+ID, Height, Weight
+
+1, 170cm, 65kg
+
+2, 180cm, 70kg
+
+3, 165cm, 60kg
+
+
+
+    
+数据预处理：对数据进行标准化处理，以便将不同特征的数据范围保持一致。这里我们使用z-score标准化方法：
+        
+scss
+复制代码
+
+z_Height = (Height - Mean(Height)) / StdDev(Height)
+
+z_Weight = (Weight - Mean(Weight)) / StdDev(Weight)
+
+
+    
+选择合适的神经网络结构：线性回归模型是一个简单的线性模型，可以用于解决回归问题。它由一个输入层、一个隐藏层和一个输出层组成。在这个例子中，我们只需要一个输出层，因为我们只有一个目标变量(体重)。
+        
+python
+复制代码
+
+import numpy as np
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+
+# Load data into a pandas dataframe
+data = pd.read_csv('data.csv')
+X = data[['Height', 'Weight']].values.astype(float)
+y = data['Weight'].values.astype(float)
+
+# Train linear regression model on normalized data
+model = LinearRegression()
+model.fit(X, y)
+
+# Predict weight for new samples using trained model
+new_data = [[175, 60], [180, 70], [165, 65]] # Example new samples to predict weight for
+predictions = model.predict(new_data)
+print(predictions) # Output: [64.59620368433275, 70.049749444999998, 62.9333283455281]
+
+
+
+
+
+
+
+
+
+
+
+
+
+构建基于神经网络的决策树模型需要以下步骤：
+
+收集和准备数据集。数据集应该包含有关要分类或预测的变量的信息，并且应该具有足够的数量和质量的数据以支持模型的训练。
+
+选择适当的神经网络结构。常见的神经网络结构包括决策树、卷积神经网络、循环神经网络等。选择合适的结构取决于数据集的特征和任务要求。
+
+训练模型。使用训练数据集对选定的神经网络结构进行训练。在训练期间，模型将学习如何从输入数据中提取有用的特征，并根据这些特征做出正确的决策。
+
+评估模型性能。使用测试数据集来评估模型的性能。这可以帮助确定模型是否能够正确地分类或预测新的数据点。
+
+下面是一个简单的示例，演示如何使用Python中的scikit-learn库构建一个基于决策树的分类器：
+
+        
+python
+复制代码
+
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+
+# 加载数据集
+iris = datasets.load_iris()
+X = iris.data
+y = iris.target
+
+# 将数据集拆分为训练集和测试集
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# 创建决策树分类器对象
+clf = DecisionTreeClassifier()
+
+# 在训练集上拟合模型
+clf.fit(X_train, y_train)
+
+# 在测试集上评估模型性能
+score = clf.score(X_test, y_test)
+print("Accuracy:", score)
+
+# 使用模型进行预测
+new_data = [[5.1, 3.5, 1.4, 0.2], [6.3, 3.3, 6.0, 2.5]] # Example new data to predict species for
+predictions = clf.predict(new_data)
+print("Predictions:", predictions) # Output: [0, 1] (species classification)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+循环神经网络(Recurrent Neural Network,RNN)是一种特殊的神经网络结构，它可以处理序列数据，如时间序列、自然语言文本等。与传统的前馈神经网络不同，RNN具有反馈连接，允许信息在神经元之间传递和更新。这使得RNN能够捕捉到序列中的长期依赖关系，从而在许多任务中表现出色，如语音识别、机器翻译、情感分析等。
+
+RNN有两种主要类型：基本循环神经网络(Simple RNN)和长短时记忆网络(Long Short-Term Memory,LSTM)。
+
+Simple RNN:
+简单循环神经网络包括一个循环层(也称为循环单元或状态矢量)和一个全连接层。输入首先通过循环层进行处理，然后输出被送入全连接层。在每个时间步长t,循环层的输出都会影响下一个时间步长的输入。简单循环神经网络的一个主要问题是梯度消失/爆炸现象，导致梯度无法有效地传播到较远的时刻。
+
+LSTM:
+长短时记忆网络解决了简单循环神经网络中的梯度消失/爆炸问题。LSTM包含一个内部状态记忆单元(即遗忘门)、一个输入门和一个输出门。这些门可以控制信息的流动，从而使信息可以被保留和更新。LSTM还具有一个额外的细胞状态，称为细胞状态，它可以帮助解决梯度消失/爆炸问题。LSTM通常比简单循环神经网络更复杂，但在许多序列建模任务中表现更好。
+
+RNN在深度学习领域取得了显著的成功，特别是在自然语言处理、语音识别和机器翻译等领域。然而，随着深度学习的发展，其他类型的神经网络(如卷积神经网络和Transformer)也在这些任务中取得了更好的性能。尽管如此，RNN仍然是许多序列建模任务的重要工具。
+
+
+
+
+
+
+
+
+
+
+
+Transformer是一种基于自注意力机制(Self-Attention Mechanism)的深度神经网络结构，由Vaswani等人于2017年提出。相比于传统的循环神经网络(RNN)和卷积神经网络(CNN),Transformer在处理长序列时具有更好的性能，并且可以并行计算，因此被广泛应用于自然语言处理领域。
+
+Transformer的核心组成部分包括编码器(Encoder)和解码器(Decoder)。编码器和解码器都由多个相同的层(也称为编码器/解码器块)组成，每个层中包含两个子层：多头自注意力层(Multi-Head Self-Attention Layer)和前馈神经网络层(Feedforward Neural Network Layer)。
+
+多头自注意力层：
+多头自注意力层是Transformer中最重要的组成部分之一。它通过计算输入序列中每个位置与其他位置之间的相似度得到一个注意力向量，然后将这些向量加权求和，得到一个新的表示向量。与传统的自注意力机制不同的是，多头自注意力层使用了多个注意力头(也称为多头注意力),每个注意力头计算不同的信息。这样做可以捕捉到不同位置之间的关系，从而更好地理解输入序列的语义信息。
+
+前馈神经网络层：
+前馈神经网络层用于对多头自注意力层的输出进行进一步处理。它通常由两个全连接层组成，其中一个用于线性变换，另一个用于非线性变换。前馈神经网络层可以帮助模型学习更加复杂的特征表示。
+
+Transformer还使用了一个残差连接(Residual Connection)和一种位置编码方式(Positional Encoding)来解决长序列的问题。残差连接允许模型直接跨层连接，从而避免了梯度消失问题；位置编码则为每个位置提供了一个向量表示，使得模型可以感知输入序列的位置信息。
+
+总的来说，Transformer通过自注意力机制实现了对输入序列的全局建模能力，同时利用并行计算的方式提高了模型的效率。因此，Transformer在自然语言处理领域取得了巨大的成功，并被广泛应用于机器翻译、文本摘要、问答系统等任务中。
